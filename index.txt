@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelinho da Lu | Excellence Gourmet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Pacifico&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF85A2;
+            --secondary: #3E2723;
+            --glass: rgba(255, 255, 255, 0.5);
+            --border: rgba(255, 255, 255, 0.7);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            color: var(--secondary);
+            overflow-x: hidden;
+            background: linear-gradient(-45deg, #fdf2f5, #ffe4e9, #f0f4f8, #ffffff);
+            background-size: 400% 400%;
+            animation: liquidGradient 12s ease infinite;
+        }
+
+        @keyframes liquidGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* EFEITO DE CLIQUE */
+        .click-spark {
+            position: absolute; width: 15px; height: 15px; background: var(--primary);
+            border-radius: 50%; pointer-events: none; animation: spark 0.6s ease-out forwards;
+            z-index: 9999; box-shadow: 0 0 10px var(--primary);
+        }
+        @keyframes spark { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(4); opacity: 0; } }
+
+        header { padding: 40px 20px; text-align: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); }
+
+        .logo-lu-premium {
+            width: 125px; height: 125px; margin: 0 auto; background: radial-gradient(circle, #ffffff, #fff0f3);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 12px 30px rgba(255, 133, 162, 0.3); border: 4px solid #ffffff; transition: 0.5s;
+        }
+        .logo-lu-premium span { font-family: 'Pacifico', cursive; font-size: 3.8rem; background: linear-gradient(45deg, var(--primary), #ffb3c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        h1 { font-family: 'Pacifico', cursive; color: var(--primary); font-size: 2.8rem; margin-top: 15px; }
+
+        .container { width: 92%; max-width: 500px; margin: 30px auto 160px; }
+
+        .glass-card { background: var(--glass); backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 35px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 45px rgba(0,0,0,0.03); }
+
+        .product-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid rgba(0,0,0,0.03); }
+
+        .qty-controls { display: flex; align-items: center; gap: 12px; background: white; padding: 6px; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        .btn-action { width: 36px; height: 36px; border-radius: 12px; border: none; background: var(--secondary); color: white; font-weight: 800; cursor: pointer; }
+        .btn-action.plus { background: var(--primary); }
+
+        .input-lux { width: 100%; padding: 18px; border-radius: 18px; border: none; background: white; margin-bottom: 12px; font-family: inherit; }
+
+        /* SEÇÃO FINAL MODERNIZADA */
+        .about-box {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 40px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .about-box h4 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        .about-box p {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 300;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #5d4037;
+            letter-spacing: 0.2px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .floating-checkout {
+            position: fixed; bottom: 25px; left: 20px; right: 20px;
+            background: rgba(62, 39, 35, 0.96); backdrop-filter: blur(12px);
+            padding: 22px 28px; border-radius: 28px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3); z-index: 2000;
+        }
+
+        .price-tag strong { display: block; font-size: 1.7rem; color: var(--primary); line-height: 1; }
+
+        .btn-send { background: #25D366; color: white; border: none; padding: 16px 28px; border-radius: 18px; font-weight: 800; cursor: pointer; }
+
+    </style>
+</head>
+<body onclick="spawnSpark(event)">
+
+<header>
+    <div class="logo-lu-premium"><span>Lu</span></div>
+    <h1>Gelinho da Lu</h1>
+    <p style="color: #6d4c41; font-weight: 700; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;">Experiência Gourmet Artesanal</p>
+</header>
+
+<div class="container">
+    <div class="glass-card">
+        <h3 style="margin-bottom: 20px; font-weight: 800;">Cardápio Oficial</h3>
+        <div id="menu-list"></div>
+    </div>
+
+    <div class="glass-card">
+        <h3 style="margin-bottom: 20px; font-weight: 800;">Dados para Entrega</h3>
+        <input type="text" id="nome" class="input-lux" placeholder="Seu Nome Completo">
+        <input type="text" id="endereco" class="input-lux" placeholder="Endereço Completo">
+        <select id="pagamento" class="input-lux">
+            <option value="Pix">Pagar com Pix</option>
+            <option value="Cartão">Cartão de Crédito/Débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+        </select>
+        <textarea id="obs" class="input-lux" style="height: 80px; resize: none;" placeholder="Observações..."></textarea>
+    </div>
+
+    <div class="about-box">
+        <h4>Atrás da Receita</h4>
+        <div class="divider"></div>
+        <p>
+            O <strong>Gelinho da Lu</strong> nasceu para transformar momentos simples em experiências inesquecíveis. 
+            Cada receita é um segredo guardado, unindo a cremosidade artesanal aos melhores insumos premium. 
+            Não é apenas um gelinho, é o carinho em forma de sabor na sua porta.
+        </p>
+        <div style="margin-top:40px; opacity:0.3; font-size:0.65rem; letter-spacing: 2px;">© 2026 GELINHO DA LU • ARAÇATUBA</div>
+    </div>
+</div>
+
+<div class="floating-checkout">
+    <div class="price-tag">
+        <span style="color:rgba(255,255,255,0.6); font-size:0.6rem;">VALOR TOTAL</span>
+        <strong id="display-total">R$ 0,00</strong>
+    </div>
+    <button class="btn-send" onclick="enviarWhatsApp()">FINALIZAR</button>
+</div>
+
+<script>
+    const itens = [
+        { n: "Nutella Morango", d: "Base de morango com 10g de Nutella." },
+        { n: "Ninhotella", d: "Base de Ninho recheada com 10g de Nutella." },
+        { n: "Brigadeiro", d: "Base de Ninho, chocolate e 10g de granulado macio." },
+        { n: "Ninho Oreo", d: "Base de Ninho com 10g de biscoito Oreo." },
+        { n: "Ninho Kat", d: "Base de Ninho com chocolate Kit Kat." },
+        { n: "Briga Oreo", d: "Base chocolate, granulado macio e biscoito Oreo." },
+        { n: "Nutella Morango Ninho", d: "Base morango, recheio Nutella e 10g de Ninho em pó." },
+        { n: "Açaí Leite Condensado", d: "Base com Açaí e Leite Condensado." },
+        { n: "Açaí Ninho Leite Condensado", d: "Base Açaí, Leite Condensado e Ninho em pó." }
+    ];
+
+    let cart = {};
+
+    function loadMenu() {
+        document.getElementById('menu-list').innerHTML = itens.map(p => `
+            <div class="product-row">
+                <div style="flex:1">
+                    <div style="font-weight:800; font-size:0.95rem;">${p.n}</div>
+                    <div style="font-size:0.75rem; color:#8d6e63;">${p.d}</div>
+                    <div style="color:var(--primary); font-weight:800; font-size:0.85rem; margin-top:4px;">R$ 5,00</div>
+                </div>
+                <div class="qty-controls">
+                    <button class="btn-action" onclick="updateQty('${p.n}', -1)">-</button>
+                    <span id="q-${p.n}" style="font-weight:800; min-width:20px; text-align:center;">0</span>
+                    <button class="btn-action plus" onclick="updateQty('${p.n}', 1)">+</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function updateQty(name, val) {
+        cart[name] = Math.max(0, (cart[name] || 0) + val);
+        document.getElementById(`q-${name}`).innerText = cart[name];
+        let total = Object.values(cart).reduce((a,b) => a+b, 0) * 5;
+        document.getElementById('display-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+
+    function spawnSpark(e) {
+        const spark = document.createElement('div');
+        spark.className = 'click-spark';
+        spark.style.left = `${e.pageX - 7}px`;
+        spark.style.top = `${e.pageY - 7}px`;
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 600);
+    }
+
+    function enviarWhatsApp() {
+        const nome = document.getElementById('nome').value;
+        const end = document.getElementById('endereco').value;
+        const total = document.getElementById('display-total').innerText;
+        let pedido = "";
+        for(let s in cart) if(cart[s] > 0) pedido += `• ${s} (${cart[s]}x)\n`;
+        if(!nome || !end || !pedido) return alert("Preencha todos os campos!");
+        let texto = `*PEDIDO GELINHO DA LU*\n\n${pedido}\n*CLIENTE:* ${nome}\n*END:* ${end}\n*TOTAL:* ${total}`;
+        window.open(`https://wa.me/5518981362237?text=${encodeURIComponent(texto)}`);
+    }
+
+    loadMenu();
+</script>
+
+</body>
+</html>
