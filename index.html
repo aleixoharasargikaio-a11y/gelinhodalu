@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gelinho da Lu | Excellence Gourmet</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Pacifico&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <title>Lu Gourmet | Experiência Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Pacifico&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #FF85A2;
+            --primary-dark: #e06b88;
             --secondary: #3E2723;
-            --glass: rgba(255, 255, 255, 0.5);
-            --border: rgba(255, 255, 255, 0.7);
+            --glass: rgba(255, 255, 255, 0.65);
+            --border: rgba(255, 255, 255, 0.8);
+            --shadow: 0 10px 30px -10px rgba(62, 39, 35, 0.1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -20,184 +22,364 @@
             min-height: 100vh;
             color: var(--secondary);
             overflow-x: hidden;
-            background: linear-gradient(-45deg, #fdf2f5, #ffe4e9, #f0f4f8, #ffffff);
+            background: linear-gradient(-45deg, #fff0f3, #ffffff, #f0f8ff, #fff5f8);
             background-size: 400% 400%;
-            animation: liquidGradient 12s ease infinite;
+            animation: liquidGradient 15s ease infinite;
         }
 
+        /* ANIMAÇÕES GLOBAIS */
         @keyframes liquidGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* EFEITO DE CLIQUE */
-        .click-spark {
-            position: absolute; width: 15px; height: 15px; background: var(--primary);
-            border-radius: 50%; pointer-events: none; animation: spark 0.6s ease-out forwards;
-            z-index: 9999; box-shadow: 0 0 10px var(--primary);
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
-        @keyframes spark { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(4); opacity: 0; } }
 
-        header { padding: 40px 20px; text-align: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* PARTICULAS DE FUNDO */
+        .bg-particles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
+        }
+        .particle {
+            position: absolute; font-size: 1.5rem; opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* LOADER */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff0f3; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s;
+        }
+        .loader-logo {
+            width: 100px; height: 100px; border-radius: 50%;
+            background: white; border: 4px solid var(--primary);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Pacifico', cursive; color: var(--primary); font-size: 3rem;
+            animation: pulseLoader 1.5s infinite;
+        }
+        @keyframes pulseLoader { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 133, 162, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 133, 162, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 133, 162, 0); } }
+
+        /* HEADER */
+        header { 
+            padding: 40px 20px 20px; text-align: center; 
+            background: rgba(255,255,255,0.3); backdrop-filter: blur(10px);
+            border-bottom: 1px solid white;
+            position: relative; overflow: hidden;
+        }
 
         .logo-lu-premium {
-            width: 125px; height: 125px; margin: 0 auto; background: radial-gradient(circle, #ffffff, #fff0f3);
+            width: 130px; height: 130px; margin: 0 auto; background: radial-gradient(circle at 30% 30%, #ffffff, #ffe4e9);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 12px 30px rgba(255, 133, 162, 0.3); border: 4px solid #ffffff; transition: 0.5s;
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.25); border: 4px solid #ffffff;
+            position: relative; z-index: 2;
         }
-        .logo-lu-premium span { font-family: 'Pacifico', cursive; font-size: 3.8rem; background: linear-gradient(45deg, var(--primary), #ffb3c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        h1 { font-family: 'Pacifico', cursive; color: var(--primary); font-size: 2.8rem; margin-top: 15px; }
-
-        .container { width: 92%; max-width: 500px; margin: 30px auto 160px; }
-
-        .glass-card { background: var(--glass); backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 35px; padding: 25px; margin-bottom: 25px; box-shadow: 0 15px 45px rgba(0,0,0,0.03); }
-
-        .product-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid rgba(0,0,0,0.03); }
-
-        .qty-controls { display: flex; align-items: center; gap: 12px; background: white; padding: 6px; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-
-        .btn-action { width: 36px; height: 36px; border-radius: 12px; border: none; background: var(--secondary); color: white; font-weight: 800; cursor: pointer; }
-        .btn-action.plus { background: var(--primary); }
-
-        .input-lux { width: 100%; padding: 18px; border-radius: 18px; border: none; background: white; margin-bottom: 12px; font-family: inherit; }
-
-        /* SEÇÃO FINAL MODERNIZADA */
-        .about-box {
-            text-align: center;
-            padding: 50px 20px;
-            margin-top: 40px;
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.2);
+        .logo-lu-premium span { 
+            font-family: 'Pacifico', cursive; font-size: 4rem; 
+            background: linear-gradient(45deg, var(--primary), #ff9eb5); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            filter: drop-shadow(2px 2px 0px rgba(255,255,255,0.8));
         }
 
-        .about-box h4 {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.6rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-        }
+        h1 { font-family: 'Pacifico', cursive; color: var(--primary); font-size: 2.4rem; margin-top: 15px; text-shadow: 0 2px 10px rgba(255,133,162,0.1); }
 
-        .divider {
-            width: 40px;
-            height: 2px;
-            background: var(--primary);
-            margin: 0 auto 20px;
-            border-radius: 2px;
-            opacity: 0.6;
-        }
+        .container { width: 92%; max-width: 500px; margin: 20px auto 140px; position: relative; z-index: 1; }
 
-        .about-box p {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 300;
+        /* ABAS ESTILO iOS */
+        .category-tabs {
+            display: flex; background: rgba(255,255,255,0.6); 
+            padding: 6px; border-radius: 25px; margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); backdrop-filter: blur(5px);
+        }
+        .tab-btn {
+            flex: 1; padding: 12px; border-radius: 20px; border: none;
+            background: transparent; color: #888; font-weight: 700;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.95rem;
-            line-height: 1.8;
-            color: #5d4037;
-            letter-spacing: 0.2px;
-            max-width: 400px;
-            margin: 0 auto;
+        }
+        .tab-btn.active { 
+            background: white; color: var(--primary); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+            transform: scale(1.02);
         }
 
+        /* CARDS */
+        .glass-card { 
+            background: var(--glass); backdrop-filter: blur(25px); 
+            border: 1px solid var(--border); border-radius: 32px; 
+            padding: 25px; margin-bottom: 25px; 
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .section-title {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 20px; font-weight: 800; font-size: 1.1rem; color: var(--secondary);
+        }
+        .section-title::before {
+            content: ''; width: 6px; height: 24px; background: var(--primary);
+            border-radius: 4px; display: block;
+        }
+
+        /* PRODUTOS */
+        .product-row { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 16px; margin-bottom: 12px;
+            background: rgba(255,255,255,0.4); border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.6);
+            transition: all 0.2s;
+            opacity: 0; animation: slideUpFade 0.5s forwards;
+        }
+        .product-row:hover { transform: translateY(-2px); background: rgba(255,255,255,0.7); }
+
+        .qty-controls { 
+            display: flex; align-items: center; gap: 10px; 
+            background: white; padding: 5px; border-radius: 14px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .btn-action { 
+            width: 32px; height: 32px; border-radius: 10px; border: none; 
+            background: #f0f0f0; color: var(--secondary); font-weight: 800; 
+            cursor: pointer; transition: 0.2s;
+        }
+        .btn-action.plus { background: var(--primary); color: white; }
+        .btn-action:active { transform: scale(0.9); }
+
+        .qty-number { font-weight: 800; min-width: 20px; text-align: center; font-size: 1rem; }
+        .qty-number.pop { animation: pop 0.3s ease; color: var(--primary); }
+
+        /* INPUTS MODERNOS */
+        .input-group { position: relative; margin-bottom: 15px; }
+        .input-lux { 
+            width: 100%; padding: 18px 18px 18px 50px; border-radius: 18px; border: 2px solid transparent; 
+            background: white; font-family: inherit; font-size: 0.95rem; outline: none;
+            transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .input-icon {
+            position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+            font-size: 1.2rem; opacity: 0.5;
+        }
+        .input-lux:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.15); }
+        textarea.input-lux { padding-left: 18px; height: 100px; resize: none; }
+
+        /* SOBRE */
+        .about-box { 
+            text-align: center; padding: 40px 25px; margin-top: 40px; 
+            border-radius: 40px; background: linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            border: 1px solid white;
+        }
+        .about-box h4 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; margin-bottom: 10px; }
+
+        /* CHECKOUT FLUTUANTE */
         .floating-checkout {
-            position: fixed; bottom: 25px; left: 20px; right: 20px;
-            background: rgba(62, 39, 35, 0.96); backdrop-filter: blur(12px);
-            padding: 22px 28px; border-radius: 28px;
+            position: fixed; bottom: -100px; left: 20px; right: 20px;
+            background: rgba(62, 39, 35, 0.95); backdrop-filter: blur(15px);
+            padding: 20px 25px; border-radius: 28px;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3); z-index: 2000;
+            box-shadow: 0 20px 60px rgba(62, 39, 35, 0.4); z-index: 2000;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .floating-checkout.visible { bottom: 25px; }
 
-        .price-tag strong { display: block; font-size: 1.7rem; color: var(--primary); line-height: 1; }
+        .price-tag strong { display: block; font-size: 1.6rem; color: var(--primary); line-height: 1; }
+        .btn-send { 
+            background: #25D366; color: white; border: none; padding: 14px 28px; 
+            border-radius: 16px; font-weight: 800; cursor: pointer; font-size: 0.95rem;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-send:active { transform: scale(0.95); }
 
-        .btn-send { background: #25D366; color: white; border: none; padding: 16px 28px; border-radius: 18px; font-weight: 800; cursor: pointer; }
-
+        .hidden { display: none; }
     </style>
 </head>
 <body onclick="spawnSpark(event)">
 
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-logo">Lu</div>
+</div>
+
+<!-- PARTICULAS BACKGROUND -->
+<div class="bg-particles">
+    <div class="particle" style="top:10%; left:10%;">🍦</div>
+    <div class="particle" style="top:20%; right:15%; animation-delay:1s;">🍿</div>
+    <div class="particle" style="bottom:15%; left:20%; animation-delay:2s;">❄️</div>
+    <div class="particle" style="top:50%; right:5%; animation-delay:3s;">✨</div>
+    <div class="particle" style="bottom:30%; right:30%; animation-delay:4s;">🍧</div>
+</div>
+
 <header>
     <div class="logo-lu-premium"><span>Lu</span></div>
-    <h1>Gelinho da Lu</h1>
-    <p style="color: #6d4c41; font-weight: 700; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;">Experiência Gourmet Artesanal</p>
+    <h1>Lu Gourmet</h1>
+    <p style="color: #6d4c41; font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px;">Boutique de Gelinhos & Pipocas</p>
 </header>
 
 <div class="container">
-    <div class="glass-card">
-        <h3 style="margin-bottom: 20px; font-weight: 800;">Cardápio Oficial</h3>
-        <div id="menu-list"></div>
+    <div class="category-tabs">
+        <button id="btn-gelinhos" class="tab-btn active" onclick="switchTab('gelinhos')">🍦 Gelinhos</button>
+        <button id="btn-pipocas" class="tab-btn" onclick="switchTab('pipocas')">🍿 Pipocas</button>
     </div>
 
     <div class="glass-card">
-        <h3 style="margin-bottom: 20px; font-weight: 800;">Dados para Entrega</h3>
-        <input type="text" id="nome" class="input-lux" placeholder="Seu Nome Completo">
-        <input type="text" id="endereco" class="input-lux" placeholder="Endereço Completo">
-        <select id="pagamento" class="input-lux">
-            <option value="Pix">Pagar com Pix</option>
-            <option value="Cartão">Cartão de Crédito/Débito</option>
-            <option value="Dinheiro">Dinheiro</option>
-        </select>
-        <textarea id="obs" class="input-lux" style="height: 80px; resize: none;" placeholder="Observações..."></textarea>
+        <div id="section-gelinhos">
+            <h3 class="section-title">Nossos Gelinhos</h3>
+            <div id="list-gelinhos"></div>
+        </div>
+        <div id="section-pipocas" class="hidden">
+            <h3 class="section-title">Pipocas Gourmet</h3>
+            <div id="list-pipocas"></div>
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <h3 class="section-title">Dados de Entrega</h3>
+        
+        <div class="input-group">
+            <span class="input-icon">👤</span>
+            <input type="text" id="nome" class="input-lux" placeholder="Seu nome completo">
+        </div>
+        
+        <div class="input-group">
+            <span class="input-icon">📍</span>
+            <input type="text" id="endereco" class="input-lux" placeholder="Endereço de entrega">
+        </div>
+
+        <div class="input-group">
+            <span class="input-icon">💳</span>
+            <select id="pagamento" class="input-lux">
+                <option value="Pix">Pagar com Pix</option>
+                <option value="Cartão">Cartão Débito/Crédito</option>
+                <option value="Dinheiro">Dinheiro</option>
+            </select>
+        </div>
+
+        <textarea id="obs" class="input-lux" placeholder="Alguma observação? (ex: ponto de referência, troco...)"></textarea>
     </div>
 
     <div class="about-box">
         <h4>Atrás da Receita</h4>
-        <div class="divider"></div>
-        <p>
-            O <strong>Gelinho da Lu</strong> nasceu para transformar momentos simples em experiências inesquecíveis. 
-            Cada receita é um segredo guardado, unindo a cremosidade artesanal aos melhores insumos premium. 
-            Não é apenas um gelinho, é o carinho em forma de sabor na sua porta.
-        </p>
-        <div style="margin-top:40px; opacity:0.3; font-size:0.65rem; letter-spacing: 2px;">© 2026 GELINHO DA LU • ARAÇATUBA</div>
+        <div style="width:40px; height:3px; background:var(--primary); margin:0 auto 20px; border-radius:10px;"></div>
+        <p>No <strong>Lu Gourmet</strong>, acreditamos que o luxo está no sabor. Cada receita é desenvolvida com paixão e insumos de primeira linha para transformar o seu dia.</p>
+        <div style="margin-top:30px; opacity:0.4; font-size:0.65rem; letter-spacing: 2px;">© 2026 LU GOURMET</div>
     </div>
 </div>
 
-<div class="floating-checkout">
+<div id="checkout-bar" class="floating-checkout">
     <div class="price-tag">
-        <span style="color:rgba(255,255,255,0.6); font-size:0.6rem;">VALOR TOTAL</span>
+        <span style="color:rgba(255,255,255,0.6); font-size:0.6rem; letter-spacing:1px;">TOTAL</span>
         <strong id="display-total">R$ 0,00</strong>
     </div>
-    <button class="btn-send" onclick="enviarWhatsApp()">FINALIZAR</button>
+    <button class="btn-send" onclick="enviarWhatsApp()">
+        PEDIR AGORA <span>🚀</span>
+    </button>
 </div>
 
 <script>
-    const itens = [
-        { n: "Nutella Morango", d: "Base de morango com 10g de Nutella." },
-        { n: "Ninhotella", d: "Base de Ninho recheada com 10g de Nutella." },
-        { n: "Brigadeiro", d: "Base de Ninho, chocolate e 10g de granulado macio." },
-        { n: "Ninho Oreo", d: "Base de Ninho com 10g de biscoito Oreo." },
-        { n: "Ninho Kat", d: "Base de Ninho com chocolate Kit Kat." },
-        { n: "Briga Oreo", d: "Base chocolate, granulado macio e biscoito Oreo." },
-        { n: "Nutella Morango Ninho", d: "Base morango, recheio Nutella e 10g de Ninho em pó." },
-        { n: "Açaí Leite Condensado", d: "Base com Açaí e Leite Condensado." },
-        { n: "Açaí Ninho Leite Condensado", d: "Base Açaí, Leite Condensado e Ninho em pó." }
+    // Remover Loader
+    window.onload = () => {
+        setTimeout(() => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+        }, 1500);
+    }
+
+    const gelinhos = [
+        { n: "Nutella Morango", d: "Morango fresco + 10g Nutella" },
+        { n: "Ninhotella", d: "Base Ninho + 10g Nutella" },
+        { n: "Brigadeiro", d: "Ninho, choco e granulado macio" },
+        { n: "Ninho Oreo", d: "Ninho cremoso + 10g Oreo" },
+        { n: "Ninho Kat", d: "Ninho + pedaços de Kit Kat" },
+        { n: "Briga Oreo", d: "Choco, granulado e Oreo" },
+        { n: "Nutella Morango Ninho", d: "O trio perfeito: Morango, Nutella, Ninho" },
+        { n: "Açaí Leite Condensado", d: "Açaí puro + Leite Moça" },
+        { n: "Açaí Ninho Especial", d: "Açaí, Leite Condensado e Ninho" }
+    ];
+
+    const pipocas = [
+        { n: "Leite Ninho Premium", d: "Crocante e banhada no Ninho" },
+        { n: "Chocolate Belga", d: "Cobertura nobre 50% cacau" },
+        { n: "Caramelo Salgado", d: "Caramelo artesanal com flor de sal" },
+        { n: "Pipoca de Nutella", d: "Banho de chocolate e Nutella" }
     ];
 
     let cart = {};
 
-    function loadMenu() {
-        document.getElementById('menu-list').innerHTML = itens.map(p => `
-            <div class="product-row">
+    function renderList(data, target) {
+        document.getElementById(target).innerHTML = data.map((p, i) => `
+            <div class="product-row" style="animation-delay: ${i * 0.05}s">
                 <div style="flex:1">
-                    <div style="font-weight:800; font-size:0.95rem;">${p.n}</div>
-                    <div style="font-size:0.75rem; color:#8d6e63;">${p.d}</div>
+                    <div style="font-weight:700; font-size:0.95rem; color:var(--secondary);">${p.n}</div>
+                    <div style="font-size:0.75rem; color:#8d6e63; margin-top:2px;">${p.d}</div>
                     <div style="color:var(--primary); font-weight:800; font-size:0.85rem; margin-top:4px;">R$ 5,00</div>
                 </div>
                 <div class="qty-controls">
                     <button class="btn-action" onclick="updateQty('${p.n}', -1)">-</button>
-                    <span id="q-${p.n}" style="font-weight:800; min-width:20px; text-align:center;">0</span>
+                    <span id="q-${p.n}" class="qty-number">0</span>
                     <button class="btn-action plus" onclick="updateQty('${p.n}', 1)">+</button>
                 </div>
             </div>
         `).join('');
     }
 
+    function switchTab(tab) {
+        const secG = document.getElementById('section-gelinhos');
+        const secP = document.getElementById('section-pipocas');
+        const btnG = document.getElementById('btn-gelinhos');
+        const btnP = document.getElementById('btn-pipocas');
+
+        if (tab === 'gelinhos') {
+            secG.classList.remove('hidden');
+            secP.classList.add('hidden');
+            btnG.classList.add('active');
+            btnP.classList.remove('active');
+            // Re-trigger animations
+            renderList(gelinhos, 'list-gelinhos');
+        } else {
+            secG.classList.add('hidden');
+            secP.classList.remove('hidden');
+            btnG.classList.remove('active');
+            btnP.classList.add('active');
+            renderList(pipocas, 'list-pipocas');
+        }
+    }
+
     function updateQty(name, val) {
         cart[name] = Math.max(0, (cart[name] || 0) + val);
-        document.getElementById(`q-${name}`).innerText = cart[name];
+        const qtyElem = document.getElementById(`q-${name}`);
+        qtyElem.innerText = cart[name];
+        
+        // Efeito Pop
+        qtyElem.classList.remove('pop');
+        void qtyElem.offsetWidth; // Trigger reflow
+        qtyElem.classList.add('pop');
+
         let total = Object.values(cart).reduce((a,b) => a+b, 0) * 5;
         document.getElementById('display-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+
+        // Mostrar/Esconder Checkout
+        const checkoutBar = document.getElementById('checkout-bar');
+        if (total > 0) checkoutBar.classList.add('visible');
+        else checkoutBar.classList.remove('visible');
     }
 
     function spawnSpark(e) {
@@ -212,17 +394,26 @@
     function enviarWhatsApp() {
         const nome = document.getElementById('nome').value;
         const end = document.getElementById('endereco').value;
+        const pag = document.getElementById('pagamento').value;
+        const obs = document.getElementById('obs').value;
         const total = document.getElementById('display-total').innerText;
-        let pedido = "";
-        for(let s in cart) if(cart[s] > 0) pedido += `• ${s} (${cart[s]}x)\n`;
-        if(!nome || !end || !pedido) return alert("Preencha todos os campos!");
-        let texto = `*PEDIDO GELINHO DA LU*\n\n${pedido}\n*CLIENTE:* ${nome}\n*END:* ${end}\n*TOTAL:* ${total}`;
-        window.open(`https://wa.me/5518981362237?text=${encodeURIComponent(texto)}`);
+        
+        let pStr = "";
+        for(let k in cart) if(cart[k]>0) pStr += `• ${k} (${cart[k]}x)\n`;
+        
+        if(!nome || !end || !pStr) return alert("Por favor, selecione os produtos e preencha seus dados!");
+        
+        let zap = `*PEDIDO LU GOURMET* 💎\n\n${pStr}\n*CLIENTE:* ${nome}\n📍 *MORADA:* ${end}\n💳 *PAGAMENTO:* ${pag}`;
+        if(obs) zap += `\n*OBS:* ${obs}`;
+        zap += `\n\n*TOTAL:* ${total}\n⏱️ *ENTREGA:* 35-50 min`;
+        
+        window.open(`https://wa.me/5518981362237?text=${encodeURIComponent(zap)}`);
     }
 
-    loadMenu();
+    // Inicialização
+    renderList(gelinhos, 'list-gelinhos');
+    renderList(pipocas, 'list-pipocas');
 </script>
 
 </body>
-
 </html>
