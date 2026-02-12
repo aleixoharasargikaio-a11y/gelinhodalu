@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lu Gourmet | Experiência Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Pacifico&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #FF85A2;
@@ -130,12 +130,17 @@
         }
         
         .section-title {
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 20px; font-weight: 800; font-size: 1.1rem; color: var(--secondary);
         }
-        .section-title::before {
+        .section-title-wrapper { display: flex; align-items: center; gap: 10px; }
+        .section-title-wrapper::before {
             content: ''; width: 6px; height: 24px; background: var(--primary);
             border-radius: 4px; display: block;
+        }
+        .size-badge {
+            font-size: 0.65rem; background: var(--primary); color: white;
+            padding: 4px 10px; border-radius: 10px; letter-spacing: 1px;
         }
 
         /* PRODUTOS */
@@ -179,14 +184,19 @@
         }
         .input-lux:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.15); }
         textarea.input-lux { padding-left: 18px; height: 100px; resize: none; }
+        select.input-lux { appearance: none; cursor: pointer; }
 
-        /* SOBRE */
+        /* SOBRE DETALHADO */
         .about-box { 
-            text-align: center; padding: 40px 25px; margin-top: 40px; 
-            border-radius: 40px; background: linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            text-align: center; padding: 50px 25px; margin-top: 40px; 
+            border-radius: 40px; background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
             border: 1px solid white;
+            box-shadow: 0 10px 30px rgba(255, 133, 162, 0.05);
         }
-        .about-box h4 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; margin-bottom: 10px; }
+        .about-box h4 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.2rem; margin-bottom: 15px; color: var(--secondary); }
+        .about-content { font-size: 0.9rem; line-height: 1.8; color: #5d4037; margin-bottom: 25px; }
+        .about-features { display: grid; grid-template-cols: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .feature-item { background: white; padding: 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
 
         /* CHECKOUT FLUTUANTE */
         .floating-checkout {
@@ -208,6 +218,9 @@
             transition: transform 0.2s;
         }
         .btn-send:active { transform: scale(0.95); }
+
+        /* INFO FRETE */
+        .frete-info { font-size: 0.7rem; color: #888; margin-top: 5px; font-style: italic; padding-left: 18px; }
 
         .hidden { display: none; }
     </style>
@@ -242,17 +255,24 @@
 
     <div class="glass-card">
         <div id="section-gelinhos">
-            <h3 class="section-title">Nossos Gelinhos</h3>
+            <div class="section-title">
+                <div class="section-title-wrapper">Nossos Gelinhos</div>
+                <span class="size-badge">PADRÃO 10CM</span>
+            </div>
             <div id="list-gelinhos"></div>
         </div>
         <div id="section-pipocas" class="hidden">
-            <h3 class="section-title">Pipocas Gourmet</h3>
+            <h3 class="section-title">
+                <div class="section-title-wrapper">Pipocas Gourmet</div>
+            </h3>
             <div id="list-pipocas"></div>
         </div>
     </div>
 
     <div class="glass-card">
-        <h3 class="section-title">Dados de Entrega</h3>
+        <h3 class="section-title">
+            <div class="section-title-wrapper">Dados de Entrega</div>
+        </h3>
         
         <div class="input-group">
             <span class="input-icon">👤</span>
@@ -262,6 +282,38 @@
         <div class="input-group">
             <span class="input-icon">📍</span>
             <input type="text" id="endereco" class="input-lux" placeholder="Endereço de entrega">
+        </div>
+
+        <!-- CONSULTA DE DISTÂNCIA -->
+        <div class="input-group" style="margin-bottom: 25px;">
+            <div style="background: rgba(255, 133, 162, 0.1); padding: 15px; border-radius: 18px; border: 1px dashed var(--primary);">
+                <p style="font-size: 0.75rem; color: var(--secondary); margin-bottom: 10px; font-weight: 600;">
+                    Não sabe a distância até sua casa? 
+                    <br><span style="font-weight: 400; font-size: 0.7rem;">Clique abaixo para ver a quilometragem da nossa loja até você:</span>
+                </p>
+                <a href="https://www.google.com/maps/dir/Rua+São+Fidelis,+280+-+Paraíso,+Araçatuba+-+SP//" 
+                   target="_blank"
+                   style="display: flex; align-items: center; justify-content: center; gap: 8px; background: white; color: #4285F4; text-decoration: none; padding: 10px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                   🗺️ Ver KM no Mapa
+                </a>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <span class="input-icon">🛵</span>
+            <select id="distancia" class="input-lux" onchange="calcTotal()">
+                <option value="0">Selecione a Distância até sua casa</option>
+                <option value="7.00">Até 1,5 km — R$ 7,00</option>
+                <option value="8.00">De 1,5 a 3 km — R$ 8,00</option>
+                <option value="8.50">De 3 a 4,5 km — R$ 8,50</option>
+                <option value="9.80">De 4,5 a 6 km — R$ 9,80</option>
+                <option value="11.50">De 6 a 7,5 km — R$ 11,50</option>
+                <option value="13.50">De 7,5 a 9 km — R$ 13,50</option>
+                <option value="14.80">De 9 a 10,5 km — R$ 14,80</option>
+                <option value="15.50">De 10,5 a 12 km — R$ 15,50</option>
+                <option value="18.79">De 12 a 13,5 km — R$ 18,79</option>
+            </select>
+            <div class="frete-info">*Taxa de entrega calculada pela distância.</div>
         </div>
 
         <div class="input-group">
@@ -276,17 +328,32 @@
         <textarea id="obs" class="input-lux" placeholder="Alguma observação? (ex: ponto de referência, troco...)"></textarea>
     </div>
 
+    <!-- SOBRE NÓS -->
     <div class="about-box">
-        <h4>Atrás da Receita</h4>
-        <div style="width:40px; height:3px; background:var(--primary); margin:0 auto 20px; border-radius:10px;"></div>
-        <p>No <strong>Lu Gourmet</strong>, acreditamos que o luxo está no sabor. Cada receita é desenvolvida com paixão e insumos de primeira linha para transformar o seu dia.</p>
-        <div style="margin-top:30px; opacity:0.4; font-size:0.65rem; letter-spacing: 2px;">© 2026 LU GOURMET</div>
+        <p style="text-transform: uppercase; font-size: 0.6rem; font-weight: 800; letter-spacing: 3px; color: var(--primary); margin-bottom: 10px;">A Nossa Essência</p>
+        <h4>Sobre Nós</h4>
+        <div style="width:50px; height:4px; background:var(--primary); margin:0 auto 25px; border-radius:10px;"></div>
+        
+        <div class="about-content">
+            No <strong>Lu Gourmet</strong>, transformamos memórias de infância em experiências de luxo. 
+            Nascemos do desejo de elevar o simples gelinho ao status de alta confeitaria. 
+            Cada produto é artesanal, utilizando apenas <strong>leite condensado de primeira linha</strong>, frutas selecionadas e chocolates nobres.
+        </div>
+
+        <div class="about-features">
+            <div class="feature-item">🍨 Bases Cremosas</div>
+            <div class="feature-item">🍫 Chocolates Nobres</div>
+            <div class="feature-item">📏 Tamanho Padrão 10cm</div>
+            <div class="feature-item">✨ Higiene Rigorosa</div>
+        </div>
+        
+        <div style="margin-top:40px; opacity:0.3; font-size:0.65rem; letter-spacing: 2px; font-weight: 800;">© 2026 LU GOURMET • PREMIUM TRADITION</div>
     </div>
 </div>
 
 <div id="checkout-bar" class="floating-checkout">
     <div class="price-tag">
-        <span style="color:rgba(255,255,255,0.6); font-size:0.6rem; letter-spacing:1px;">TOTAL</span>
+        <span style="color:rgba(255,255,255,0.6); font-size:0.6rem; letter-spacing:1px;">TOTAL (C/ ENTREGA)</span>
         <strong id="display-total">R$ 0,00</strong>
     </div>
     <button class="btn-send" onclick="enviarWhatsApp()">
@@ -295,7 +362,6 @@
 </div>
 
 <script>
-    // Remover Loader
     window.onload = () => {
         setTimeout(() => {
             document.getElementById('loader').style.opacity = '0';
@@ -304,15 +370,15 @@
     }
 
     const gelinhos = [
-        { n: "Nutella Morango", d: "Morango fresco + 10g Nutella" },
-        { n: "Ninhotella", d: "Base Ninho + 10g Nutella" },
-        { n: "Brigadeiro", d: "Ninho, choco e granulado macio" },
-        { n: "Ninho Oreo", d: "Ninho cremoso + 10g Oreo" },
-        { n: "Ninho Kat", d: "Ninho + pedaços de Kit Kat" },
-        { n: "Briga Oreo", d: "Choco, granulado e Oreo" },
-        { n: "Nutella Morango Ninho", d: "O trio perfeito: Morango, Nutella, Ninho" },
-        { n: "Açaí Leite Condensado", d: "Açaí puro + Leite Moça" },
-        { n: "Açaí Ninho Especial", d: "Açaí, Leite Condensado e Ninho" }
+        { n: "Nutella Morango", d: "Morango fresco + 10g Nutella (10cm)" },
+        { n: "Ninhotella", d: "Base Ninho + 10g Nutella (10cm)" },
+        { n: "Brigadeiro", d: "Ninho, choco e granulado macio (10cm)" },
+        { n: "Ninho Oreo", d: "Ninho cremoso + 10g Oreo (10cm)" },
+        { n: "Ninho Kat", d: "Ninho + pedaços de Kit Kat (10cm)" },
+        { n: "Briga Oreo", d: "Choco, granulado e Oreo (10cm)" },
+        { n: "Nutella Morango Ninho", d: "O trio: Morango, Nutella, Ninho (10cm)" },
+        { n: "Açaí Leite Condensado", d: "Açaí puro + Leite Moça (10cm)" },
+        { n: "Açaí Ninho Especial", d: "Açaí, Leite Condensado e Ninho (10cm)" }
     ];
 
     const pipocas = [
@@ -352,7 +418,6 @@
             secP.classList.add('hidden');
             btnG.classList.add('active');
             btnP.classList.remove('active');
-            // Re-trigger animations
             renderList(gelinhos, 'list-gelinhos');
         } else {
             secG.classList.add('hidden');
@@ -368,49 +433,55 @@
         const qtyElem = document.getElementById(`q-${name}`);
         qtyElem.innerText = cart[name];
         
-        // Efeito Pop
         qtyElem.classList.remove('pop');
-        void qtyElem.offsetWidth; // Trigger reflow
+        void qtyElem.offsetWidth; 
         qtyElem.classList.add('pop');
 
-        let total = Object.values(cart).reduce((a,b) => a+b, 0) * 5;
+        calcTotal();
+    }
+
+    function calcTotal() {
+        let subtotal = Object.values(cart).reduce((a,b) => a+b, 0) * 5;
+        let frete = parseFloat(document.getElementById('distancia').value) || 0;
+        let total = subtotal + frete;
+
         document.getElementById('display-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
 
-        // Mostrar/Esconder Checkout
         const checkoutBar = document.getElementById('checkout-bar');
-        if (total > 0) checkoutBar.classList.add('visible');
+        if (subtotal > 0) checkoutBar.classList.add('visible');
         else checkoutBar.classList.remove('visible');
     }
 
-    function spawnSpark(e) {
-        const spark = document.createElement('div');
-        spark.className = 'click-spark';
-        spark.style.left = `${e.pageX - 7}px`;
-        spark.style.top = `${e.pageY - 7}px`;
-        document.body.appendChild(spark);
-        setTimeout(() => spark.remove(), 600);
-    }
+    function spawnSpark(e) {}
 
     function enviarWhatsApp() {
         const nome = document.getElementById('nome').value;
         const end = document.getElementById('endereco').value;
         const pag = document.getElementById('pagamento').value;
         const obs = document.getElementById('obs').value;
+        const dist = document.getElementById('distancia');
+        const freteVal = parseFloat(dist.value);
+        const freteTexto = dist.options[dist.selectedIndex].text;
         const total = document.getElementById('display-total').innerText;
         
         let pStr = "";
         for(let k in cart) if(cart[k]>0) pStr += `• ${k} (${cart[k]}x)\n`;
         
         if(!nome || !end || !pStr) return alert("Por favor, selecione os produtos e preencha seus dados!");
+        if(freteVal === 0 && dist.value === "0") return alert("Por favor, selecione a distância para o cálculo da entrega!");
+
+        let zap = `*NOVO PEDIDO - LU GOURMET* 💎\n\n${pStr}`;
+        zap += `\n*CLIENTE:* ${nome}`;
+        zap += `\n📍 *ENDEREÇO:* ${end}`;
+        zap += `\n🛵 *DISTÂNCIA/ENTREGA:* ${freteTexto}`;
+        zap += `\n💳 *PAGAMENTO:* ${pag}`;
         
-        let zap = `*PEDIDO LU GOURMET* 💎\n\n${pStr}\n*CLIENTE:* ${nome}\n📍 *MORADA:* ${end}\n💳 *PAGAMENTO:* ${pag}`;
         if(obs) zap += `\n*OBS:* ${obs}`;
-        zap += `\n\n*TOTAL:* ${total}\n⏱️ *ENTREGA:* 35-50 min`;
+        zap += `\n\n*VALOR FINAL:* ${total}\n(Produtos + Taxa de Entrega)`;
         
         window.open(`https://wa.me/5518981362237?text=${encodeURIComponent(zap)}`);
     }
 
-    // Inicialização
     renderList(gelinhos, 'list-gelinhos');
     renderList(pipocas, 'list-pipocas');
 </script>
